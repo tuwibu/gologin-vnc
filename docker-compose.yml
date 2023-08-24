@@ -1,0 +1,24 @@
+version: '3'
+services:
+  gologin:
+    build: ./gologin
+    ports:
+      - "5900:5900"
+    networks:
+      - gologin-network
+  vnc:
+    build: ./vnc
+    ports:
+      - "8080:8080"
+    environment:
+      - DOCKER_SOCKET=/var/run/docker.sock
+    volumes:
+      # Linux / Mac
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # Windows
+      - //var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gologin-network
+networks:
+  gologin-network:
+    driver: bridge

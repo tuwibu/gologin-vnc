@@ -1,0 +1,45 @@
+{
+  "dependencies": {
+    "@faker-js/faker": "7.6.0",
+    "adm-zip": "^0.5.10",
+    "aws-sdk": "^2.1411.0",
+    "axios": "^1.4.0",
+    "colorette": "^2.0.20",
+    "dayjs": "^1.11.9",
+    "ip": "^1.1.8",
+    "puppeteer-core": "^20.8.0",
+    "rimraf": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.3.3",
+    "pkg": "^5.8.1",
+    "typescript": "^5.2.2"
+  },
+  "name": "gologin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npx ts-node-dev src/main",
+    "clean": "rm -rfv ./build && rm -rfv ./dist",
+    "pkg": "yarn build && npx pkg . -t node18-linux-x64"
+  },
+  "bin": "./dist/main.js",
+  "pkg": {
+    "scripts": [
+      "./dist/main.js",
+      "./dist/worker.js"
+    ],
+    "outputPath": "./build",
+    "assets": [
+      "./node_modules/@nut-tree/**",
+      "./node_modules/axios/**",
+      "./node_modules/colorette/**",
+      "./node_modules/dayjs/**",
+      "./node_modules/vm2/**"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
