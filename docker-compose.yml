@@ -10,6 +10,7 @@ services:
     build: ./vnc
     ports:
       - "8080:8080"
+    shm_size: 1024m
     environment:
       - DOCKER_SOCKET=/var/run/docker.sock
     volumes:
