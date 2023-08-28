@@ -15,7 +15,9 @@ import * as rimraf from 'rimraf';
     const gologin = await new Gologin(profile);
     const browser = await gologin.launch();
     
-    
+    browser.on('disconnected', async() => {
+      logger.info(`Browser disconnected, sanitizing profile...`);
+    });
     // onClose browser
     browser.process().on('close', async() => {
       const profilePath = path.resolve(PATH_ROOT, 'user-data-dir', profile.id);
