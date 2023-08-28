@@ -4,13 +4,13 @@ services:
     build: ./gologin
     ports:
       - "5900:5900"
+    shm_size: "2048m"
     networks:
       - gologin-network
   vnc:
     build: ./vnc
     ports:
       - "8080:8080"
-    shm_size: 1024m
     environment:
       - DOCKER_SOCKET=/var/run/docker.sock
     volumes:

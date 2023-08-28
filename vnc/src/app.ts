@@ -48,10 +48,10 @@ const getContainers = async () => {
       state: item.State,
       status: item.Status,
       port: {
-        public: item.Ports[0].PublicPort,
-        private: item.Ports[0].PrivatePort
+        public: item?.Ports[0]?.PublicPort,
+        private: item?.Ports[0]?.PrivatePort
       },
-      privateIp: item.NetworkSettings.Networks[bridge].IPAddress,
+      privateIp: item.NetworkSettings?.Networks[bridge]?.IPAddress,
     });
     containers.set(item.Id.slice(0, 12), {
       name: item.Names[0].replace('/', ''),
