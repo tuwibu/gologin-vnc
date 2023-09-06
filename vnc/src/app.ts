@@ -133,14 +133,20 @@ server.on('upgrade', async(request, socket, head) => {
     ws?: ws.Server
   }[] = [];
   for (let item of containers) {
-    // localhost:8080/:containerId -> localhost:publicPort
+    // // localhost:8080/:containerId -> localhost:publicPort
+    // targets.push({
+    //   host: 'localhost',
+    //   port: item?.[1]?.port?.public || 5900,
+    //   connection: {},
+    //   path: `/${item[0]}`,
+    // });
+    // localhost:8080/:containerId -> private_ip:privatePort
     targets.push({
-      host: 'localhost',
-      port: item?.[1]?.port?.public || 5900,
+      host: item?.[1]?.privateIp,
+      port: item?.[1]?.port?.private || 5900,
       connection: {},
       path: `/${item[0]}`,
     });
-    // console.log(`${item[0]}:`, `ws://localhost:${item?.[1]?.port?.public}/`);
   }
   for(let target  of targets) {
     target.ws = new ws.Server({
