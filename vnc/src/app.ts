@@ -18,7 +18,7 @@ const argv: any = yargs.options({
   },
 }).argv;
 
-const PORT = argv.port || 8080;
+const PORT = argv.port;
 
 const app = express();
 app.use(cors());
@@ -136,10 +136,11 @@ server.on('upgrade', async(request, socket, head) => {
     // localhost:8080/:containerId -> localhost:publicPort
     targets.push({
       host: 'localhost',
-      port: item[1].port.public,
+      port: item?.[1]?.port?.public || 5900,
       connection: {},
       path: `/${item[0]}`,
     });
+    // console.log(`${item[0]}:`, `ws://localhost:${item?.[1]?.port?.public}/`);
   }
   for(let target  of targets) {
     target.ws = new ws.Server({
@@ -149,7 +150,6 @@ server.on('upgrade', async(request, socket, head) => {
     target.ws.on('connection', (ws, req) => {
       const cid = Date.now();
       const remoteAddress = req.socket.remoteAddress;
-      console.log(target);
       const connection = net.createConnection(target.port, target.host);
       connection.on('connect', () => {
         target.connection[cid] = connection;

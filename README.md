@@ -5,28 +5,32 @@
 docker compose build --no-cache
 docker compose up -d
 ```
-2. Run Docker Gologin và VNC
-- Gologin
+2. Run Docker Gologin (ko dùng compose)
 ```
-docker run -d --rm -p 5900:5900 gologin
+docker run -d --name gologin1 --rm -p 5900:5900 gologin
 ```
-- VNC
+3. Start VNC Services (folder vnc)
 ```
-docker run -d -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_SOCKET=/var/run/docker.sock -p 8080:8080 vnc
+start 
 ```
-3. Get toàn bộ docker container
+4. Get toàn bộ docker container
 ```
 http://localhost:8080/containers
 ```
-4. Xem logs của container
+5. Xem logs của container
 ```
 http://localhost:8080/logs/{container_id}
 ```
-5. Kết nối vnc
+6. Kết nối vnc
 ```
 http://localhost:8080/vnc/index.html?host={ip_vps}&port={port}&quality={quality}
 - ip_vps: ip của vps
 - port: port của container
 - quality: chất lượng hình ảnh (1-9)
 - Ví dụ: http://localhost:8080/vnc/index.html?host=localhost&port=5900
+```
+hoặc
+```
+http://localhost:8080/vnc/index.html?path={container_id}&quality={quality}
+- container_id: id của container
 ```

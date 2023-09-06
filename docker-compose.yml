@@ -1,25 +1,39 @@
 version: '3'
 services:
-  gologin:
+  gologin-1:
     build: ./gologin
     ports:
-      - "5900:5900"
-    shm_size: "2048m"
+      - "5901:5900"
+    shm_size: "1024m"
     networks:
       - gologin-network
-  vnc:
-    build: ./vnc
+  gologin-2:
+    build: ./gologin
     ports:
-      - "8080:8080"
-    environment:
-      - DOCKER_SOCKET=/var/run/docker.sock
-    volumes:
-      # Linux / Mac
-      # - /var/run/docker.sock:/var/run/docker.sock
-      # Windows
-      - //var/run/docker.sock:/var/run/docker.sock
+      - "5902:5900"
+    shm_size: "1024m"
     networks:
       - gologin-network
+  gologin-3:
+    build: ./gologin
+    ports:
+      - "5903:5900"
+    shm_size: "1024m"
+    networks:
+      - gologin-network
+  # vnc:
+  #   build: ./vnc
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - DOCKER_SOCKET=/var/run/docker.sock
+  #   volumes:
+  #     # Linux / Mac
+  #     # - /var/run/docker.sock:/var/run/docker.sock
+  #     # Windows
+  #     - //var/run/docker.sock:/var/run/docker.sock
+  #   networks:
+  #     - gologin-network
 networks:
   gologin-network:
     driver: bridge
